@@ -9,9 +9,10 @@
         <module name="day021" />
         <module name="day02" />
         <module name="day01" />
-        <module name="day022_XML" />
         <module name="day023_ANN" />
         <module name="day02re" />
+        <module name="day022_XML" />
+        <module name="day024_AOP" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
