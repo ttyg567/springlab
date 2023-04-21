@@ -6,7 +6,7 @@ import lombok.*;
 @Setter
 @Getter
 @ToString
-public class CustDTO {
+public class Cust {
 
     private String id;
     private String pwd;
