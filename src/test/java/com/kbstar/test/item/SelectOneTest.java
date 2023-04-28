@@ -1,24 +1,25 @@
-package com.kbstar.test;
+package com.kbstar.test.item;
 
-import com.kbstar.dto.Cust;
-import com.kbstar.service.CustService;
+import com.kbstar.service.ItemService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
 @Slf4j
 @SpringBootTest
-class InsertTest {
+class SelectOneTest {
+
     @Autowired
-    CustService service;
+    ItemService service;
     @Test
     void contextLoads() {
-        Cust obj = new Cust("id01", "pwd01", "james");
+
         try {
-            service.register(obj);
+            service.get(100);
+            log.info("정상 호출되었습니다..");
         } catch (Exception e) {
-            log.info("등록 에러..");
-            e.printStackTrace();
+            log.info("오류..");
         }
     }
 
