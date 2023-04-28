@@ -1,8 +1,6 @@
-package com.kbstar.test.cust;
+package com.kbstar.test.marker;
 
-import com.kbstar.dto.Cust;
-import com.kbstar.service.AdmService;
-import com.kbstar.service.CustService;
+import com.kbstar.service.MarkerService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,16 +8,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @Slf4j
 @SpringBootTest
-class SelectOneTest {
+class SelectLocTest {
     @Autowired
-    CustService service;
+    MarkerService service;
     @Test
     void contextLoads() {
-        Cust cust = null;
         try {
-            cust = service.get("id77");
-            log.info("------------------------------------------");
-            log.info(cust.toString());
+            service.getloc("s");
         } catch (Exception e) {
                 log.info("시스템 장애입니다...------------------------------------------");
                 e.printStackTrace();

@@ -3,27 +3,32 @@
 
 <div class="col-sm-8 text-left">
     <div class="container">
+        <h3> Map Center </h3>
+        <img src="/uimg/${gmarker.img}">
+        <h3>${gmarker.id}</h3>
+        <h3><a href="${gmarker.target}"> ${gmarker.title} </a> </h3>
         <div class="row content">
             <div class="col-sm-6 test-left">
+                <h3> Marker Desc </h3>
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>PWD</th>
-                        <th>NAME</th>
+                        <th>IMG</th>
+                        <th>ITEM</th>
+                        <th>PRICE</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="c" items="${clist}">
+                    <c:forEach var="m" items="${mlist}">
                         <tr>
-                            <td><a href="/cust/get?id=${c.id}">${c.id}</a></td>
-                            <td>${c.pwd}</td>
-                            <td>${c.name}</td>
+                            <td><img src="/uimg/${m.imgname}"></td>
+                            <td>${m.item}</td>
+                            <td>${m.price}</td>
                         </tr>
                     </c:forEach>
                     </tbody>
                 </table>
             </div>
-        </div> <!--end of rowcontent -->
+        </div>
     </div>
 </div>

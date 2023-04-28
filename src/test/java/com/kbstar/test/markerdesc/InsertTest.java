@@ -1,10 +1,7 @@
-package com.kbstar.test.marker;
+package com.kbstar.test.markerdesc;
 
-
-import com.kbstar.dto.Adm;
 import com.kbstar.dto.Marker;
 import com.kbstar.dto.MarkerDesc;
-import com.kbstar.service.AdmService;
 import com.kbstar.service.MarkerDescService;
 import com.kbstar.service.MarkerService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,21 +17,16 @@ class InsertTest {
     MarkerDescService service;
     @Test
     void contextLoads() {
-        MarkerDesc obj = new MarkerDesc(0, 107, "마파두부", 50000, "yang4.jpg");
-
+        MarkerDesc obj = new MarkerDesc(0, 106,"집밥",20000,"dak.kpg");
         try {
             service.register(obj);
-            log.info("등록 정상..");
+            service.get();
         } catch (Exception e) {
             if(e instanceof DuplicateKeyException){
-                log.info("ID가 중복 되었습니다.-----------------------------------------");
+                log.info("ID가 중복 되었습니다.-------------------------------");
             }else{
-                log.info("시스템 장애입니다...------------------------------------------");
-                e.printStackTrace();
+                log.info("시스템 장애입니다.----------------------------------");
             }
-
-
-
         }
     }
 

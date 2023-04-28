@@ -16,15 +16,15 @@
                     <tr>
                         <th>IMG</th>
                         <th>ID</th>
-                        <th>PRICE</th>
                         <th>NAME</th>
+                        <th>PRICE</th>
                         <th>REGDATE</th>
                     </tr>
                     </thead>
                     <tbody>
                         <c:forEach var="obj" items="${allitem}">
                             <tr>
-                                <td><img id="item_img" src="/img/${obj.imgname}"></td>
+                                <td><img id="item_img" src="/uimg/${obj.imgname}"></td>
                                 <td>${obj.id}</td>
                                 <td>${obj.name}</td>
                                 <td><fmt:formatNumber value="${obj.price}" type="currency" /></td>

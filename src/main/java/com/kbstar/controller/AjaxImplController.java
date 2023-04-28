@@ -2,8 +2,11 @@ package com.kbstar.controller;
 
 import com.kbstar.dto.Cust;
 import com.kbstar.dto.Marker;
+import com.kbstar.service.CustService;
+import com.kbstar.service.MarkerService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,6 +18,12 @@ import java.util.Random;
 // 일반적인 컨트롤러는 화면을 리턴시키므로, 서버 시간만 가져오는 컨트롤러를 새로 만들어준 것
 @RestController
 public class AjaxImplController {
+
+    @Autowired
+    MarkerService markerService;
+    @Autowired
+    CustService custService;
+
     @RequestMapping("/getservertime")
     public Object getservertime(){
       Date date = new Date();
@@ -48,30 +57,25 @@ public class AjaxImplController {
     };
 
     @RequestMapping("/checkid")
-    public Object checkid(String id){
+    public Object checkid(String id) throws Exception {
         int result = 0;
-        if(id.equals("qqqq")||id.equals("aaaa")||id.equals("ssss")){
+        Cust cust = null;
+        cust = custService.get(id);
+        if(cust != null){
             result = 1;
         }
         return result;
     };
 
     @RequestMapping("/markers")
-    public Object markers(String loc){
-        List<Marker> list = new ArrayList<>();
-        if(loc.equals("s")){
-            list.add(new Marker(100, "국밥", "http://www.nate.com", 37.5648049, 126.9753461, "a.jpg", "s"));
-            list.add(new Marker(101, "삼겹살", "http://www.nate.com", 37.5628149, 126.9741461, "b.jpg", "s"));
-            list.add(new Marker(102, "삼계탕", "http://www.nate.com", 37.5637049, 126.9736461, "c.jpg", "s"));
-        }else if(loc.equals("b")){
-            list.add(new Marker(103, "국밥", "http://www.nate.com", 35.2111142, 129.0678702, "a.jpg", "b"));
-            list.add(new Marker(104, "삼겹살", "http://www.nate.com", 35.2145142, 129.0656702, "b.jpg", "b"));
-            list.add(new Marker(105, "삼계탕", "http://www.nate.com", 35.2143442, 129.0678702, "c.jpg", "b"));
-        }else if(loc.equals("j")){
-            list.add(new Marker(106, "국밥", "http://www.nate.com", 33.3644666, 126.5244666, "a.jpg", "j"));
-            list.add(new Marker(107, "삼겹살", "http://www.nate.com", 33.3647866, 126.5222666, "b.jpg", "j"));
-            list.add(new Marker(108, "삼계탕", "http://www.nate.com", 33.3623666, 126.5297166, "c.jpg", "j"));
+    public Object markers(String loc) throws Exception {
+        List<Marker> list = null;
+        try {
+            list = markerService.getloc(loc);
+        } catch (Exception e) {
+            throw new Exception("시스템 장애");
         }
+
 
         JSONArray ja = new JSONArray();
         for(Marker obj:list){
