@@ -74,10 +74,13 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li><a href="/">Home</a></li>
+
+                <c:if test="${logincust != null}">
                 <li><a href="/jsp">JSP</a></li>
+                <li><a href="/ajax">AJAX</a></li>
                 <li><a href="/map">Map</a></li>
                 <li><a href="/chart">Chart</a></li>
-                <li><a href="/ajax">AJAX</a></li>
+                </c:if>
                 <li><a href="/cust">Cust</a></li>
                 <li><a href="/item">Item</a></li>
                 <c:if test="${logincust != null}">
@@ -92,9 +95,12 @@
                         <li><a href="/register"><span class="glyphicon glyphicon-plus"></span> Register</a></li>
                     </ul>
                 </c:when>
-                <c:otherwise> <!-- 로그인 되었을 때 -->5
+                <c:otherwise> <!-- 로그인 되었을 때 -->
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href = "/custinfo?id=${logincust.id}">${logincust.id}</a></li>
                     </ul>
                 </c:otherwise>
             </c:choose>

@@ -5,6 +5,10 @@
 <mapper namespace="com.kbstar.mapper.ItemMapper">
 
 <!--custDTO = cust-->
+    <select id="getpage" resultType="item">
+        SELECT * FROM item ORDER BY id DESC
+    </select>
+
     <select id="select" parameterType="Integer" resultType="item">
         SELECT * FROM item WHERE iD=#{id}
     </select>

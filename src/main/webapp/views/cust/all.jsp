@@ -9,7 +9,6 @@
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>PWD</th>
                         <th>NAME</th>
                     </tr>
                     </thead>
@@ -17,7 +16,6 @@
                     <c:forEach var="c" items="${clist}">
                         <tr>
                             <td><a href="/cust/get?id=${c.id}">${c.id}</a></td>
-                            <td>${c.pwd}</td>
                             <td>${c.name}</td>
                         </tr>
                     </c:forEach>
