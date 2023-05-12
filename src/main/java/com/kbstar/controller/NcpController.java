@@ -1,9 +1,7 @@
 package com.kbstar.controller;
 
 import com.kbstar.dto.Ncp;
-import com.kbstar.util.CFRCelebrityUtil;
-import com.kbstar.util.CFRFaceUtil;
-import com.kbstar.util.FileUploadUtil;
+import com.kbstar.util.*;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -26,7 +24,6 @@ public class NcpController {
     String imgpath;
 
 
-
     @RequestMapping("/cfr1impl")
     public String cfr1impl(Model model, Ncp ncp) throws ParseException {
         // 이미지를 저장한다
@@ -36,10 +33,10 @@ public class NcpController {
         JSONObject result = (JSONObject) CFRCelebrityUtil.getResult(imgpath, imgname);
         //log.info(result.toJSONString());
 
-        JSONArray faces = (JSONArray)result.get("faces");
-        JSONObject obj = (JSONObject)faces.get(0);
-        JSONObject celebrity = (JSONObject)obj.get("celebrity");
-        String value = (String)celebrity.get("value");
+        JSONArray faces = (JSONArray) result.get("faces");
+        JSONObject obj = (JSONObject) faces.get(0);
+        JSONObject celebrity = (JSONObject) obj.get("celebrity");
+        String value = (String) celebrity.get("value");
 
         // 결과를 받는다
         model.addAttribute("result", value);
@@ -58,26 +55,26 @@ public class NcpController {
         log.info(result.toJSONString());
 
         String emotion_value = null;
-        String gender_value ="";
-        String pose_value ="";
-        String age_value ="";
+        String gender_value = "";
+        String pose_value = "";
+        String age_value = "";
 
         // 결과를 받는다
-        JSONArray faces = (JSONArray)result.get("faces");
+        JSONArray faces = (JSONArray) result.get("faces");
 
-        JSONObject obj = (JSONObject)faces.get(0);
+        JSONObject obj = (JSONObject) faces.get(0);
 
         JSONObject emotion = (JSONObject) obj.get("emotion");
-        emotion_value = (String)emotion.get("value");
+        emotion_value = (String) emotion.get("value");
 
-        JSONObject gender = (JSONObject)obj.get("gender");
-        gender_value = (String)gender.get("value");
+        JSONObject gender = (JSONObject) obj.get("gender");
+        gender_value = (String) gender.get("value");
 
-        JSONObject pose = (JSONObject)obj.get("pose");
-        pose_value = (String)pose.get("value");
+        JSONObject pose = (JSONObject) obj.get("pose");
+        pose_value = (String) pose.get("value");
 
-        JSONObject age = (JSONObject)obj.get("age");
-        age_value = (String)age.get("value");
+        JSONObject age = (JSONObject) obj.get("age");
+        age_value = (String) age.get("value");
 
         Map<String, String> map = new HashMap<>();
         map.put("emotion", emotion_value);
@@ -101,26 +98,26 @@ public class NcpController {
         log.info(result.toJSONString());
 
         String emotion_value = null;
-        String gender_value ="";
-        String pose_value ="";
-        String age_value ="";
+        String gender_value = "";
+        String pose_value = "";
+        String age_value = "";
 
         // 결과를 받는다
-        JSONArray faces = (JSONArray)result.get("faces");
+        JSONArray faces = (JSONArray) result.get("faces");
 
-        JSONObject obj = (JSONObject)faces.get(0);
+        JSONObject obj = (JSONObject) faces.get(0);
 
         JSONObject emotion = (JSONObject) obj.get("emotion");
-        emotion_value = (String)emotion.get("value");
+        emotion_value = (String) emotion.get("value");
 
-        JSONObject gender = (JSONObject)obj.get("gender");
-        gender_value = (String)gender.get("value");
+        JSONObject gender = (JSONObject) obj.get("gender");
+        gender_value = (String) gender.get("value");
 
-        JSONObject pose = (JSONObject)obj.get("pose");
-        pose_value = (String)pose.get("value");
+        JSONObject pose = (JSONObject) obj.get("pose");
+        pose_value = (String) pose.get("value");
 
-        JSONObject age = (JSONObject)obj.get("age");
-        age_value = (String)age.get("value");
+        JSONObject age = (JSONObject) obj.get("age");
+        age_value = (String) age.get("value");
 
         Map<String, String> map = new HashMap<>();
         map.put("emotion", emotion_value);
@@ -133,4 +130,43 @@ public class NcpController {
 
         return "index";
     }
+
+
+    @RequestMapping("/ocr1impl")
+    public String ocr1impl(Model model, Ncp ncp) throws ParseException {
+        // 이미지를 저장한다
+        FileUploadUtil.saveFile(ncp.getImg(), imgpath);
+        // NCP에 요청한다
+        String imgname = ncp.getImg().getOriginalFilename();
+        JSONObject result = (JSONObject) CFRFaceUtil.getResult(imgpath, imgname);
+        log.info(result.toJSONString());
+
+        Map map = OCRUtil.getData(result);
+       // log.info(map.values().toString());
+
+        model.addAttribute("result", map);
+        model.addAttribute("center", "ocr1");
+
+        return "index";
+    }
+
+    @RequestMapping("/ocr2impl")
+    public String ocr2impl(Model model, Ncp ncp) throws ParseException {
+        // 이미지를 저장한다
+        FileUploadUtil.saveFile(ncp.getImg(), imgpath);
+        // NCP에 요청한다
+        String imgname = ncp.getImg().getOriginalFilename();
+
+        JSONObject result = (JSONObject) OCR2Util.getResult(imgpath, imgname);
+        //log.info("========" + result.toJSONString() + "================");
+
+        Map map = OCR2Util.getData(result);
+        // log.info(map.values().toString());
+
+        model.addAttribute("result", map);
+        model.addAttribute("center", "ocr2");
+
+        return "index";
+    }
+
 }
